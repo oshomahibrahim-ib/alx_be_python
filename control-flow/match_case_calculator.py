@@ -1,39 +1,47 @@
-# match_case_calculator.py
-# Simple calculator demonstrating match/case (Python 3.10+)
+# Objective: Learn to use Match Case statements for handling multiple operations
+# in a simple calculator program.
 
-def main():
-    # 1) Prompt user for input
-    num1_input = input("Enter the first number: ")
-    num2_input = input("Enter the second number: ")
-    operator = input("Choose the operation (+, -, *, /): ")
+# 1. Prompt for User Input and convert to float for calculation
+try:
+    num1 = float(input("Enter the first number: "))
+    num2 = float(input("Enter the second number: "))
+except ValueError:
+    print("Invalid input. Please enter valid numbers.")
+    exit()
 
-    # 2) Convert inputs to floats with validation
-    try:
-        num1 = float(num1_input)
-        num2 = float(num2_input)
-    except ValueError:
-        print("Invalid number entered. Please enter valid numeric values.")
-        return
+# Ask for the operation
+operation = input("Choose the operation (+, -, *, /): ")
 
-    # 3) Perform operation using match/case
-    match operator:
-        case "+":
-            result = num1 + num2
-            print(f"The result is {result}.")
-        case "-":
-            result = num1 - num2
-            print(f"The result is {result}.")
-        case "*":
-            result = num1 * num2
-            print(f"The result is {result}.")
-        case "/":
-            if num2 == 0:
-                print("Cannot divide by zero.")
-            else:
-                result = num1 / num2
-                print(f"The result is {result}.")
-        case _:
-            print("Invalid operation selected. Choose one of +, -, *, /.")
+# Initialize result variable
+result = None
+output_message = ""
 
-if __name__ == "__main__":
-    main()
+# 2. Perform the Calculation Using Match Case
+match operation:
+    case "+":
+        result = num1 + num2
+        output_message = f"The result is {result}."
+    
+    case "-":
+        result = num1 - num2
+        output_message = f"The result is {result}."
+        
+    case "*":
+        result = num1 * num2
+        output_message = f"The result is {result}."
+        
+    case "/":
+        # Handle division by zero case gracefully
+        if num2 == 0:
+            output_message = "Cannot divide by zero."
+        else:
+            result = num1 / num2
+            output_message = f"The result is {result}."
+            
+    # Handle cases where the user inputs an unexpected operation
+    case _:
+        output_message = "Invalid operation chosen. Please use +, -, *, or /."
+
+
+# 3. Output the Result
+print(output_message)
