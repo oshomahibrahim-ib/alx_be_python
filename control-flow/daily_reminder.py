@@ -1,71 +1,67 @@
-# Objective: Create a simplified Python script that uses conditional statements, Match Case,
-# and loops to remind the user about a single, priority task for the day based on time sensitivity.
+# control-flow/daily_reminder.py
 
-# 1. Prompt for a Single Task (Standard Input)
+# 1. Prompt for a Single Task
 task = input("Enter your task: ")
 
-# Initialize variables
-priority = ""
-is_time_bound = ""
-reminder_message = ""
-# Define the phrase for immediate action
+# Define the standard urgent phrase
 immediate_action_phrase = "that requires immediate attention today!"
 
-# Use a while loop to ensure we get a valid priority input (demonstrating loop control)
+# Initialize priority validation loop variables
 valid_priority = False
+priority = ""
+
+# Use a while loop to ensure we get a valid priority input
 while not valid_priority:
     priority = input("Priority (high/medium/low): ").lower()
     
     if priority in ["high", "medium", "low"]:
         valid_priority = True
     else:
-        # Prompt for invalid input
+        # User entered an invalid priority, loop continues
         print("Invalid priority. Please enter 'high', 'medium', or 'low'.")
 
 # 2. Prompt for time sensitivity
-is_time_bound = input("Is it time-bound? (yes/no): ").lower()
+time_bound = input("Is it time-bound? (yes/no): ").lower()
+
+# Initialize the final message variable
+reminder_message = ""
 
 # 3. Process the Task Based on Priority using Match Case
-# The match/case structure determines the base message format.
 
 match priority:
     case "high":
-        # High priority tasks always get a strong base message
+        # Base message for High Priority
         reminder_message = f"Reminder: '{task}' is a high priority task"
         
-        # Use an if statement to modify the reminder based on time sensitivity
-        if is_time_bound == "yes":
-            # Append the urgent phrase if time-bound
+        # Nested IF statement to check time sensitivity
+        if time_bound == "yes":
             reminder_message += f" {immediate_action_phrase}"
         else:
-            # Custom message if high but not explicitly time-bound
             reminder_message += ". It is important and should be prioritized soon."
 
     case "medium":
-        # Medium priority tasks are secondary
+        # Base message for Medium Priority
         reminder_message = f"Heads up: '{task}' is a medium priority task"
         
-        # Use an if statement to modify the reminder based on time sensitivity
-        if is_time_bound == "yes":
-            # Append the urgent phrase if time-bound
+        # Nested IF statement to check time sensitivity
+        if time_bound == "yes":
             reminder_message += f" {immediate_action_phrase}"
         else:
             reminder_message += ". Aim to complete it later this week."
 
     case "low":
-        # Low priority tasks are flexible
+        # Base message for Low Priority
         reminder_message = f"Note: '{task}' is a low priority task."
         
-        # Use an if statement to modify the reminder based on time sensitivity
-        if is_time_bound == "yes":
-            # Even low priority can be urgent if time-bound
+        # Nested IF statement to check time sensitivity
+        if time_bound == "yes":
+            # Urgency applied even to low priority if it's time-bound
             reminder_message = f"⚠️ WARNING: '{task}' is low priority but {immediate_action_phrase}"
         else:
-            # The requested message for low, non-time-bound tasks
+            # Matches the requested example for low, non-time-bound tasks
             reminder_message += " Consider completing it when you have free time."
 
-    # This case handles any scenario where the priority variable somehow avoids the validation loop 
-    # and is not one of the expected values, making the script robust.
+    # This wildcard case is a robust fallback, although the loop should prevent it from being reached
     case _:
         reminder_message = "Error: Invalid priority processing occurred."
 
