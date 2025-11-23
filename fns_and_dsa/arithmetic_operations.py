@@ -5,37 +5,36 @@ def perform_operation(num1: float, num2: float, operation: str):
     Performs a basic arithmetic operation on two numbers.
 
     Parameters:
-        num1 (float): The first operand.
-        num2 (float): The second operand.
-        operation (str): One of 'add', 'subtract', 'multiply', 'divide'.
-                         Input is case-insensitive and may include surrounding whitespace.
+        num1 (float): The first number.
+        num2 (float): The second number.
+        operation (str): The operation to perform ('add', 'subtract',
+                         'multiply', or 'divide').
 
     Returns:
-        float or str:
-            - The numeric result for successful operations (always a float when numeric).
-            - A specific error string "Error: Cannot divide by zero" when attempting to divide by zero.
-            - A specific error string "Error: Invalid operation '<operation>'." for unsupported operations.
+        float or str: The numeric result (as a float) for successful operations,
+                      or an error string for division-by-zero or invalid operation.
     """
-    # 1) Normalize the operation input (trim whitespace, make lowercase)
+    # Normalize operation input: remove surrounding whitespace and make lowercase
     op = operation.strip().lower()
 
-    # 2) Handle the four supported operations
+    # Addition
     if op == 'add':
-        return float(num1 + num2)           # ensure float type
+        return float(num1 + num2)
 
+    # Subtraction
     elif op == 'subtract':
         return float(num1 - num2)
 
+    # Multiplication
     elif op == 'multiply':
         return float(num1 * num2)
 
+    # Division with zero handling
     elif op == 'divide':
-        # 3) Division: check for zero to avoid ZeroDivisionError
         if num2 == 0:
-            # Return a specific string the main.py (or any checker) can recognise
             return "Error: Cannot divide by zero"
         return float(num1 / num2)
 
-    # 4) If operation not recognized, return a clear error string
+    # Invalid operation
     else:
         return f"Error: Invalid operation '{operation}'. Must be 'add', 'subtract', 'multiply', or 'divide'."
